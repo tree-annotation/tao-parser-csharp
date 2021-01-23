@@ -4,7 +4,7 @@ This is a parser for the [TAO syntax grammar](https://www.tree-annotation.org/#g
 
 It is implemented in simple C#, as a class.
 
-The implementation can be used as a reference for other parsers, in particular in other programming languages.
+The implementation can be used as a reference for other parsers, in particular in programming languages similar to C#.
 
 # Interactive version
 
