@@ -5,7 +5,6 @@ public class TaoParser
     public Tao parse(string str) {
         return tao(new Input(str));
     }
-    
     Tao tao(Input input) {
         var tao = new Tao();
         while (true) {
@@ -20,7 +19,6 @@ public class TaoParser
             tao.push(item);
         }
     }
-
     Tagged tree(Input input) {
         if (input.at('[')) {
             input.next();
@@ -32,7 +30,6 @@ public class TaoParser
         }
         return new Other();
     }
-
     Tagged op(Input input) {
         if (input.at('`')) {
             input.next();
@@ -41,7 +38,6 @@ public class TaoParser
         }
         return new Other();
     }
-
     Tagged note(Input input) {
         if (meta(input)) input.error("note");
         string note = "" + input.next();
@@ -50,11 +46,9 @@ public class TaoParser
             note += input.next();
         }
     }
-
     bool meta(Input input) {
         return input.at('[') || input.at('`') || input.at(']');
     }
-
     public class Tagged {
         public string tag {get;}
 
@@ -77,7 +71,6 @@ public class TaoParser
             return str;
         }
     }
-
     public class Tree: Tagged {
         public Tao tao {get;}
         public Tree(Tao tao): base("tree") {
@@ -87,7 +80,6 @@ public class TaoParser
             return "[" + tao + "]";
         }
     }
-
     public class Note: Tagged {
         public string note {get;}
         public Note(string note): base("note") {
@@ -97,7 +89,6 @@ public class TaoParser
             return note;
         }
     }
-
     public class Op: Tagged {
         public char op {get;}
         public Op(char op): base("op") {
@@ -107,11 +98,9 @@ public class TaoParser
             return "`" + op;
         }
     }
-
     public class Other: Tagged {
         public Other(): base("other") {}
     }
-
     class Input {
         int length;
         int position;
