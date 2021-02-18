@@ -9,14 +9,14 @@ public class TaoParser
         var tao = new Tao();
         while (true) {
             if (input.atBound()) return tao;
-            var item = tree(input);
-            if (item.tag == "other") {
-                item = op(input);
-                if (item.tag == "other") {
-                    item = note(input);
+            var part = tree(input);
+            if (part.tag == "other") {
+                part = op(input);
+                if (part.tag == "other") {
+                    part = note(input);
                 }
             }
-            tao.push(item);
+            tao.push(part);
         }
     }
     Tagged tree(Input input) {
@@ -51,22 +51,20 @@ public class TaoParser
     }
     public class Tagged {
         public string tag {get;}
-
         protected Tagged(string tag) {
             this.tag = tag;
         }
     }
     public class Tao: Tagged {
+        public List<Tagged> parts = new List<Tagged>();
         public Tao(): base("tao") {}
-        List<Tagged> items = new List<Tagged>();
-        public void push(Tagged tree) {
-            items.Add(tree);
+        public void push(Tagged part) {
+            parts.Add(part);
         }
-
         override public string ToString() {
             var str = "";
-            foreach (Tagged i in items) {
-                str += i.ToString();
+            foreach (Tagged p in parts) {
+                str += p.ToString();
             }
             return str;
         }
